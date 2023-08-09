@@ -18,3 +18,11 @@ const filterApp = (key, value) => {
   const currentApp = getList().filter(item => item[key] === value)
   return currentApp && currentApp.length ? currentApp[0] : {}
 }
+
+// 子应用是否做了切换
+export const isTurnChild = () => {
+  if (window.__CURRENT_SUB_APP__ === window.location.pathname) {
+    return false
+  }
+  return true
+}

@@ -1,14 +1,11 @@
 <script setup>
 import Loading from './components/Loading.vue'
-import { ref, watch } from "vue"
+import { watch } from "vue"
 import { useRouter, useRoute } from 'vue-router'
 import { RouterView } from 'vue-router'
+import { loading } from '@/stores'
 
-let loading = ref(true)
-setTimeout(() => {
-  loading.value = false
-}, 1000)
-
+let loadingShow = loading.loadingStatus
 const router = useRouter()
 const route = useRoute()
 const handleClick = (url) => {
@@ -29,7 +26,7 @@ watch(route, (val) => {
     <el-button @click="handleClick('/vue3#/index')">Vue3</el-button>
   </div>
   <div class="sub-container">
-    <Loading v-if="loading"></Loading>
+    <Loading v-if="loadingShow"></Loading>
     <div v-else id="micro_container">
       <RouterView></RouterView>
     </div>
