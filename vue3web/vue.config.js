@@ -13,8 +13,8 @@ module.exports = defineConfig({
     output: {
       // 将当前子应用打包成 umd 库格式，commonjs 浏览器，nodejs环境都可以使用
       libraryTarget: 'umd',
-      filename: 'vue3webpack_[name]_[hash:6].js',
-      library: 'vue3webpack',
+      filename: 'vue3_[name]_[hash:6].js',
+      library: 'vue3',
       chunkLoadingGlobal: `webpackJsonp_${name}`
     }
   }

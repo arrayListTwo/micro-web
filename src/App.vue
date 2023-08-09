@@ -1,11 +1,23 @@
 <script setup>
 import Loading from './components/Loading.vue'
-import {ref} from "vue"
+import { ref, watch } from "vue"
+import { useRouter, useRoute } from 'vue-router'
+import { RouterView } from 'vue-router'
 
 let loading = ref(true)
 setTimeout(() => {
   loading.value = false
-}, 3000)
+}, 1000)
+
+const router = useRouter()
+const route = useRoute()
+const handleClick = (url) => {
+  router.push(url)
+}
+
+watch(route, (val) => {
+  console.log(val.fullPath)
+}, { deep: true })
 </script>
 
 <template>
@@ -13,11 +25,14 @@ setTimeout(() => {
     <h1>Header</h1>
   </header>
   <div class="btn-list">
-    
+    <el-button @click="handleClick('/vue2#/energy')">Vue2</el-button>
+    <el-button @click="handleClick('/vue3#/index')">Vue3</el-button>
   </div>
   <div class="sub-container">
     <Loading v-if="loading"></Loading>
-    <div v-else class="sub-body">显示子应用内容</div>
+    <div v-else id="micro_container">
+      <RouterView></RouterView>
+    </div>
   </div>
   <footer>
     <h1>Footer</h1>
@@ -29,16 +44,19 @@ html, body, #micro_web_main_app {
   height: 100%;
   width: 100%;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 .sub-container {
   min-height: 100%;
   position: relative;
 }
-.sub-body {
+
+#micro_container {
   min-height: 100%;
   width: 100%;
 }
