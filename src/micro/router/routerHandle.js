@@ -1,7 +1,9 @@
-import { isTurnChild } from "@/micro/utils"
+import { isTurnChild } from '@/micro/utils'
+import { lifeCycle } from '@/micro/lifeCycle'
 
-export const turnApp = () => {
-  if(isTurnChild()){
-    console.log('路由切换了')
+export const turnApp = async () => {
+  if (isTurnChild()) {
+    // 微前端的生命周期执行
+    await lifeCycle()
   }
 }
