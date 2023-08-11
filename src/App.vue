@@ -27,7 +27,7 @@ watch(route, (val) => {
   </div>
   <div class="sub-container">
     <Loading v-if="loadingShow"></Loading>
-    <div v-else id="micro_container">
+    <div v-show="!loadingShow" id="micro_container">
       <RouterView></RouterView>
     </div>
   </div>

@@ -22,4 +22,5 @@ module.exports = defineConfig({
       chunkLoadingGlobal: `webpackJsonp_${name}`,
     },
   },
+  publicPath: 'http://localhost:4000',
 })

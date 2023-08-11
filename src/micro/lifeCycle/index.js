@@ -1,5 +1,6 @@
 import { findAppByRoute } from '@/micro/utils'
 import { getMainLifecycle } from '@/micro/const/mainLifeCycle'
+import { loadHtml } from '@/micro/loader'
 
 export const lifeCycle = async () => {
   // 获取到上一个子应用
@@ -10,11 +11,11 @@ export const lifeCycle = async () => {
 
   console.log(prevApp, nextApp)
 
-  if(!nextApp) {
+  if (!nextApp) {
     return
   }
 
-  if(prevApp && prevApp.destroyed) {
+  if (prevApp && prevApp.destroyed) {
     await destroyed(prevApp)
   }
 
@@ -26,12 +27,13 @@ export const beforeLoad = async (app) => {
   await runMainLifeCycle('beforeLoad')
   app && app.beforeLoad && app.beforeLoad()
 
-  const appContext= null
-  return appContext
+  const subApp = await loadHtml(app) // 获取的是子应用的内容
+  subApp && subApp.beforeLoad && subApp.beforeLoad()
+  return subApp
 }
 
 export const mounted = async (app) => {
-  app && app.mounted()
+  app && app.mounted && app.mounted()
 
   await runMainLifeCycle('mounted')
 }
@@ -45,5 +47,5 @@ export const destroyed = async (app) => {
 export const runMainLifeCycle = async (type) => {
   const mainLife = getMainLifecycle()
 
-  await Promise.all(mainLife[type].map(async item => await item()))
+  await Promise.all(mainLife[type].map(async (item) => await item()))
 }
