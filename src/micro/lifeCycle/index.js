@@ -3,6 +3,7 @@ import { getMainLifecycle } from '@/micro/const/mainLifeCycle'
 import { loadHtml } from '@/micro/loader'
 
 export const lifeCycle = async () => {
+  debugger
   // 获取到上一个子应用
   const prevApp = findAppByRoute(window.__ORIGIN_APP__)
 

@@ -15,6 +15,10 @@ export const loadHtml = async (app) => {
     throw new Error('容器不存在，请查看')
   }
   ct.innerHTML = dom
+
+  scripts.forEach(item => {
+    eval(item)
+  })
   return app
 }
 
